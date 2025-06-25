@@ -465,6 +465,13 @@ void DeviceManager::OnData(socket_t sock, void *client_data) {
   uint32_t handle = ((struct sockaddr_in *)&addr)->sin_addr.s_addr;
   uint16_t port = ntohs(((struct sockaddr_in *)&addr)->sin_port);
 
+  struct sockaddr addr_host;
+  getsockname(sock, (struct sockaddr *)&addr_host, (socklen_t *)&addrlen);
+  uint16_t port_host = ntohs(((struct sockaddr_in *)&addr_host)->sin_port);
+  //LOG_INFO("host port" + std::to_string(port_host));
+  // Change port to filter by dst port
+  port = port_host-1;
+
   struct in_addr tmp_addr;
   tmp_addr.s_addr = handle;
   std::string lidar_ip = inet_ntoa(tmp_addr);
