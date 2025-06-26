@@ -1,0 +1,11 @@
+Source: movai-livox-sdk2
+Maintainer: Filipe Almeida<filipe.almeida@mov.ai>
+Section: unknown
+Priority: optional
+Build-Depends: unzip, debhelper (>= 7.4.3)
+Standards-Version: 3.9.1
+
+Package: movai-livox-sdk2
+Architecture: all
+Depends: ${misc:Depends}
+Description: TODO
