@@ -1,5 +1,5 @@
 Source: movai-livox-sdk2
-Maintainer: Filipe Almeida<filipe.almeida@mov.ai>
+Maintainer: Bruno Neves<bruno.neves@mov.ai>
 Section: unknown
 Priority: optional
 Build-Depends: unzip, debhelper (>= 7.4.3)
