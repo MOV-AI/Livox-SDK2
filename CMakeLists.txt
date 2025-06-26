@@ -18,3 +18,10 @@ endif(UNIX)
 
 add_subdirectory(sdk_core)
 add_subdirectory(samples)
+
+
+install(EXPORT livox_sdk2_targets
+    FILE livox_sdk2Targets.cmake
+    NAMESPACE livox:: 
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/livox_sdk2
+)

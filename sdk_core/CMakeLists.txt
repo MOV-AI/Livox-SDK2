@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-
+include(GNUInstallDirs)
 set(SDK_LIBRARY_STATIC livox_lidar_sdk_static)
 set(SDK_LIBRARY_SHARED livox_lidar_sdk_shared)
 
@@ -17,10 +17,10 @@ set(LIVOX_API_HEADER
         ../include/livox_lidar_cfg.h
         )
 
-set_target_properties(${SDK_LIBRARY_STATIC} #${SDK_LIBRARY_SHARED} 
-        PROPERTIES
-        PUBLIC_HEADER "${LIVOX_API_HEADER}"
-        )
+#set_target_properties(${SDK_LIBRARY_STATIC} #${SDK_LIBRARY_SHARED} 
+#        PROPERTIES
+#        PUBLIC_HEADER "${LIVOX_API_HEADER}"
+#        )
 
 if(WIN32)
   set(PLATFORM win)
@@ -49,20 +49,21 @@ set(LIVOX_PUBLIC_INCLUDE_DIR
         ../include
         )
 
-target_include_directories(
-        ${SDK_LIBRARY_STATIC}
-        PUBLIC
-        ${LIVOX_PUBLIC_INCLUDE_DIR}
-        PRIVATE
-        ${LIVOX_PRIVATE_INCLUDE_DIR}
-        )        
-target_include_directories(
-        ${SDK_LIBRARY_SHARED}
-        PUBLIC
-        ${LIVOX_PUBLIC_INCLUDE_DIR}
-        PRIVATE
-        ${LIVOX_PRIVATE_INCLUDE_DIR}
-        )
+target_include_directories(${SDK_LIBRARY_STATIC}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    $<INSTALL_INTERFACE:include>
+  PRIVATE
+    ${LIVOX_PRIVATE_INCLUDE_DIR}
+)
+
+target_include_directories(${SDK_LIBRARY_SHARED}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    $<INSTALL_INTERFACE:include>
+  PRIVATE
+    ${LIVOX_PRIVATE_INCLUDE_DIR}
+)
 
 set(MAIN_SOURCES
         device_manager.cpp
@@ -138,6 +139,13 @@ target_sources(${SDK_LIBRARY_SHARED}
         )
 
 install(TARGETS ${SDK_LIBRARY_STATIC} ${SDK_LIBRARY_SHARED}
-        PUBLIC_HEADER DESTINATION include
-        ARCHIVE DESTINATION lib
-        LIBRARY DESTINATION lib)
+    EXPORT livox_sdk2_targets
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(DIRECTORY ../include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILES_MATCHING PATTERN "*.h"
+)
