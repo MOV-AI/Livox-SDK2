@@ -1,6 +1,6 @@
 name: "Deploy - On main/release branches"
 on:
-  pull_request:
+  push:
     branches:
       - 'release/*'
       - dev
