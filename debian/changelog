@@ -1,4 +1,4 @@
-movai-livox-sdk2 (0.0.1-1) UNRELEASED; urgency=medium
+movai-livox-sdk2 (0.0.1-2) UNRELEASED; urgency=medium
 
 
   [ Filipe ]
@@ -6,5 +6,6 @@ movai-livox-sdk2 (0.0.1-1) UNRELEASED; urgency=medium
 
   [ root ]
   * bump version
+  * bump version
 
- -- root <root@159955926abb>  Wed, 18 Jan 2023 14:25:34 +0000
+ -- root <root@89b0cbe49268>  Thu, 26 Jun 2025 16:50:36 +0000
